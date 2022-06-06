@@ -21,6 +21,7 @@ const cube3 = new THREE.Mesh(
 	new THREE.MeshBasicMaterial({color:'#0000ff'}),
 );
 
+// Cube 쌓기
 const cube4 = new THREE.Mesh(
 	new THREE.BoxGeometry(1,1,1),
 	new THREE.MeshBasicMaterial({color:'#ff0000'}),
