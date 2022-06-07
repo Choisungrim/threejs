@@ -22,11 +22,20 @@
         justify-content: center;
         align-items: center;
         }
+    #info {
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+        display:block;
+    }
   </style>
 </head>
 <body>
     <canvas class="webgl"></canvas>
+    <div id="info">Description</div>
     <script src = " https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js "></script>
-    <script src = "js/01-basic.js"></script>
+    <script src = "js/03-basic.js"></script>
 </body>
 </html>
