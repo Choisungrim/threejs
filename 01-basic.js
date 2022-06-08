@@ -42,8 +42,8 @@ scene.add(group);
 
 // Sizes
 const sizes = {
-	width : 1500,
-	height : 1200
+	width : 2000,
+	height : 1000
 }
 
 //axesHelper
@@ -56,7 +56,7 @@ camera.position.set(0.3,6,2)
 camera.rotation.set(-20,0,-0.5)
 scene.add(camera);
 
-// Renderer
+// Renderer	
 const canvas =  document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({
 	canvas : canvas

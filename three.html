@@ -2,40 +2,12 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, inital-scale=1">
-  <style>
-    * {
-        outline: none;
-        margin: 0 auto;
-        }
-
-    body {
-        overflow: hidden;
-        }
-
-    #webgl{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
-    #info {
-        position: absolute;
-        top: 10px;
-        width: 100%;
-        text-align: center;
-        z-index: 100;
-        display:block;
-    }
-  </style>
+  <link rel="stylesheet" type ="text/css" href = "reset.css">
 </head>
 <body>
     <canvas class="webgl"></canvas>
     <div id="info">Description</div>
     <script src = " https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js "></script>
-    <script src = "js/03-basic.js"></script>
+    <script src = "01-basic.js"></script>
 </body>
 </html>
