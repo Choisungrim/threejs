@@ -11,7 +11,7 @@ const canvas = document.querySelector('#webgl');
 
 // 렌더링
 const renderer = new THREE.WebGLRenderer({canvas});
-//renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
