@@ -50,8 +50,8 @@ const sizes = {
 const axesHelper = new THREE.AxesHelper();
 scene.add(axesHelper);
 
-// Camera
-const camera = new THREE.PerspectiveCamera(100,sizes.width/sizes.height);
+// 카메라
+const camera = new THREE.PerspectiveCamera(75,sizes.width/sizes.height,0.1, 1000);
 camera.position.set(0.3,6,2)
 camera.rotation.set(-20,0,-0.5)
 scene.add(camera);
@@ -61,6 +61,10 @@ const canvas =  document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({
 	canvas : canvas
 })
+
+
+
+
 renderer.setSize(sizes.width,sizes.height);
 
 renderer.render(scene,camera);
