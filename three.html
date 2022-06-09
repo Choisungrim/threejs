@@ -30,9 +30,12 @@ body {
 }
   </Style>
 </head>
-<body>
-  <canvas id = "webgl"></canvas>
+<body onload = init()>
+  <div id = container></div>
+  <a id="camera-btn"><div>
+    <i class="fas fa-camera"></i>
+  </div></a>
   <script src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.js "></script>
-  <script src = "05-basic.js"></script>
+  <script src = "07-basic.js"></script>
 </body>
 </html>
