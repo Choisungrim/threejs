@@ -26,8 +26,8 @@
       const gui = new dat.GUI();
       const world = {
         plane : {
-          width:10,
-          height : 10,
+          width : 5,
+          height : 5,
           widthSegments : 10,
           heightSegments : 10
         }
@@ -54,6 +54,16 @@
         const z = array[i+2];
         array[i+2] = z+Math.random();
         }
+        const colors = [];
+          for (let i = 0 ; i<planeMesh.geometry.attributes.position.count; i++)
+          colors.push(1,0,0);
+          
+          console.log(colors);
+
+          planeMesh.geometry.setAttribute(
+            'color',
+            new THREE.BufferAttribute(new Float32Array(colors),3)
+          );
       }
       const raycaster = new THREE.Raycaster()
       console.log(raycaster)
@@ -134,7 +144,6 @@
         color.needsUpdate = true
       }
 
-        planeMesh.rotation.y += 0.01;
     }
     animate();
     addEventListener('mousemove',(event)=>{
