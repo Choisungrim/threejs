@@ -29,8 +29,8 @@ function init(){
   document.body.appendChild( renderer.domElement );
   
   //Add mesh here
-  const curve = new THREE.Curves.TrousGeometry();
-  const geometry = new THREE.TubeBufferGeometry(curve, 100,2,8,true);
+  const curve = new THREE.TorusGeometry( 10, 8, 16, 15 );
+  const geometry = new THREE.TubeBufferGeometry(1, 100,2,8,true);
   const material = new THREE.MeshBasicMaterial({wireframe: true, side: THREE.DoubleSide});
   tube = new THREE.Mesh(geometry, material);
   scene.add(tube);
