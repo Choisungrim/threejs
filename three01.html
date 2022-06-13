@@ -66,7 +66,7 @@ var planeMaterial1 = new THREE.MeshBasicMaterial({
 })
 
 // 좌측 바탕 면
-var planeGeometry2 = new THREE.PlaneGeometry(25,46,10);
+var planeGeometry2 = new THREE.PlaneGeometry(25,46.5,10);
 var planeMaterial2 = new THREE.MeshBasicMaterial({
     color:0xFAFAD2,
     side:THREE.DoubleSide,
@@ -120,43 +120,36 @@ scene.add(axes);
 scene.add(plane,plane1,plane2,plane3,plane4);
 
 camera.position.set(30,75,-30);
-camera.lookAt(scene.position);
 
 plane1.rotation.y = 0.1;
-plane2.rotation.y =-0.1;
+plane2.rotation.y = -0.1;5
 
 var step = 0;
 var size = 10;
+
 document.getElementById('webgl-ani').appendChild(renderer.domElement)
+const controls = new OrbitControls(camera,renderer.domElement)
+const mouse = {
+    x: undefined,
+    y: undefined
+}
 renderScene();
 
-new OrbitControls(camera,renderer.domElement)
+    function renderScene(){
+        step += 0.01
+        size -= 0.03
+        plane1.position.x = ( -8 * (Math.cos(step))-1)+1.2;
+        plane1.position.y = 1.5 + (4 * Math.abs(Math.sin(step)+0.2)+2.5);
+        plane1.rotation.y += 0.008;
+        
+        camera.position.set(size-0.01,size+40,-13+step)
+        
+        renderer.render(scene,camera)
+        controls.update();
+        if(plane1.rotation.y <2.85)
+        requestID = requestAnimationFrame(renderScene);
+    };
 
-
-  const mouse = {
-      x: undefined,
-      y: undefined
-    }
-
-
-function renderScene(){
-    step +=0.01
-    size -= 0.03
-    plane1.position.x = ( -8 * (Math.cos(step))-1.5)+1.6;
-    plane1.position.y = 2 + ( 11 * Math.abs(Math.sin(step*1)+0.2)+1);
-    plane1.rotation.y += 0.008;
-
-    camera.position.set(size,size+45,-34)
-    camera.lookAt(scene.position);
-
-    renderer.render(scene,camera)
-    //if(plane1.rotation.y <2.85)
-    requestID = requestAnimationFrame(renderScene);
-};
-
-addEventListener('click',(e)=>{
-    renderScene();
-})
 }
 
 // let a = false;
