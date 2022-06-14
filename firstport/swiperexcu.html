@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        color: #000;
+        background-color: #eee;
+        font-size: 14px;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    }
+
+    .swiper-container {
+      background-color: black;
+        width: 100%;
+        height: 120px;
+    }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        text-align: center;
+        background: #fff;
+        opacity: 0.5;
+        border-radius: 10px;
+        color: black
+    }
+
+    #next, #prev{
+      top:55px;
+    }
+    #pagenav {
+      position: absolute;
+    left: 912px;
+    margin-top: -40px;
+    display: flex;
+    height: 100px;
+    width: 100px;
+    top: 100px;
+    justify-content: center;
+    align-items: center;
+    }
+
+
+    .desk {
+      display: flex;
+      flex-direction: column;
+      width: 1653px;
+      height: 690px;
+      padding: 80px 137px 80px 130px;
+      background-color: #8b5927;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .books{
+      display: flex;
+      justify-content: space-around;
+      width: 750px;
+      height: 680px;
+      background-color: #fafad2;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .books2{
+      display: flex;
+      justify-content: space-around;
+      width: 750px;
+      height: 680px;
+      background-color: #fafad2;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 12px;
+      margin-left: 9px;
+    }
+    .cover {
+      position: absolute;
+      margin:0 auto;
+      left : 49%;
+      width: 26px;
+      height: 685px;
+      background-color: #000;
+    }
+    .content{
+      background: none;
+      outline: none;
+      border-bottom: 1px;
+      width: 742px;
+      height: 100%;
+    }
+    #bookscontainer{
+      display: flex;
+    }
+    #btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 35px;
+    width: 500px;
+    height: 600px;
+    }
+  </style>
+</head>
+<body>
+<form>
+  <div class="swiper-container">
+      <div class="swiper-wrapper">
+          <div class="swiper-slide">Slide 1</div>
+          <div class="swiper-slide">Slide 2</div>
+          <div class="swiper-slide">Slide 3</div>
+          <div class="swiper-slide">Slide 4</div>
+          <div class="swiper-slide">Slide 5</div>
+          <div class="swiper-slide">Slide 6</div>
+          <div class="swiper-slide">Slide 7</div>
+          <div class="swiper-slide">Slide 8</div>
+          <div class="swiper-slide">Slide 9</div>
+          <div class="swiper-slide">Slide 10</div>
+          <div class="swiper-slide">Slide 11</div>
+          <div class="swiper-slide">Slide 12</div>
+          <div class="swiper-slide">Slide 13</div>
+          <div class="swiper-slide">Slide 14</div>
+          <div class="swiper-slide">Slide 15</div>
+      </div>
+      <div class="swiper-pagination" id = "pagenav"></div>
+      <!-- Pagination -->
+      <div class="swiper-button-next" id = "next"></div>
+      <div class="swiper-button-prev" id = "prev"></div>
+    <!-- Arrows -->
+    </div>
+    <div class="desk">
+      <div id = "bookscontainer">
+      <div class="cover"></div>
+      <div class="books">
+        <input type = "text" id = "line" class = content placeholder="제목을 입력하여 주세요.">
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+        <input type = "text" id = "line" class = content>
+          
+      </div>
+      <div class ="books2">
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+        <input type = "text" id = "line" class = content> 
+      </div>
+    </div>
+    <div id = "btn">
+      <button type = "submit" id = "save"> 저장 </button>
+      <button type = "reset" id ="reset"> 리셋 </button>
+    </div>
+  </div>
+</form>
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src = "../jquery-3.2.1.min.js"></script>
+<script>
+$(function () {
+  var swiper = new Swiper('.swiper-container', {
+    loop: true,
+    slidesPerView: 5,
+    spaceBetween: 50,
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'fraction',
+      formatFractionCurrent: function (number) {
+          return + number;
+      }
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    }
+  });
+});
+</script>
+</body>
+</html>

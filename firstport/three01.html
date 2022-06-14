@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <Style>
+        body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        background: black;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        *{
+        margin: 0;
+        overflow: hidden;
+        }
+        canvas {
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: -1;
+        }
+        .text-box {
+        font-size: 60px;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 7px;
+        word-spacing: 12px;
+        text-transform: uppercase;
+        color:rgb(238, 238, 238);
+        }
+    </Style>
+</head>
+<body>
+    <div class="text-box">
+        <div class="heading" id = head>Click here</div>
+    </div>
+    <script src =jquery-3.2.1.min.js></script>
+    <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.141.0/build/three.module.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+  (function(){
+
+     init()
+
+})()
+ function init(){
+var requestID;
+let add = 0.01, default_value = 0;
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(75,
+window.innerWidth/window.innerHeight *1.3  ,1.5,300);
+var renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor(new THREE.Color(0x000000));
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    renderer.shadowMap.enabled = true;
+
+var light1 = new THREE.PointLight( 0xffffff, 1, 100 );
+light1.position.set( 5, 5, 5 );
+scene.add( light1 );
+
+var light2 = new THREE.PointLight( 0xffFFFF, 1, 100 );
+light2.position.set( 7, -5, 6 );
+scene.add( light2 );
+
+var light3 = new THREE.PointLight( 0xffffff, 1, 100 );
+light3.position.set( -7, 3, 3 );
+scene.add( light3 );
+
+var light_base = new THREE.AmbientLight( 0xf0f0f0 );
+scene.add( light_base );
+
+
+// Text 
+
+
+
+// 전체 바탕틀
+var planeGeometry = new THREE.PlaneGeometry(100,100);
+var planeMaterial = new THREE.MeshBasicMaterial({
+    color:0x8B5927,
+    side:THREE.DoubleSide,
+})
+
+// 넘어가는 페이지
+var planeGeometry1 = new THREE.PlaneGeometry(20,45,10);
+var planeMaterial1 = new THREE.MeshBasicMaterial({
+    color:0xFAFAD2,
+    side:THREE.DoubleSide,
+})
+
+// 좌측 바탕 면
+var planeGeometry2 = new THREE.PlaneGeometry(25,46.5,10);
+var planeMaterial2 = new THREE.MeshBasicMaterial({
+    color:0xFAFAD2,
+    side:THREE.DoubleSide,
+})
+
+// 가운데 틀
+var planeGeometry3 = new THREE.PlaneGeometry(3,46,10);
+var planeMaterial3 = new THREE.MeshBasicMaterial({
+    color:0x000000,
+    side:THREE.DoubleSide,
+})
+
+//우측 바탕면
+var planeGeometry4 = new THREE.PlaneGeometry(20,46,10);
+var planeMaterial4 = new THREE.MeshBasicMaterial({
+    color:0xFAFAD2,
+    side:THREE.DoubleSide,
+})
+
+const geometry = new THREE.BoxGeometry( 50, 5, 50 );
+const material = new THREE.MeshBasicMaterial( {color: 0x906D3B, side : THREE.DoubleSide} );
+const cube = new THREE.Mesh( geometry, material );
+cube.position.set(1.5,0.7,4)
+
+scene.add( cube );
+
+var plane4 = new THREE.Mesh(planeGeometry4,planeMaterial4)
+plane4.position.set(-9,4,3);
+plane4.rotation.x = -0.5*Math.PI;
+
+var plane3 = new THREE.Mesh(planeGeometry3,planeMaterial3)
+plane3.position.set(0,3.5,3);
+plane3.rotation.x = -0.5*Math.PI;
+
+var plane2 = new THREE.Mesh(planeGeometry2,planeMaterial2)
+plane2.position.set(9,4,3);
+plane2.rotation.x = -0.5*Math.PI;
+
+var plane1 = new THREE.Mesh(planeGeometry1,planeMaterial1)
+plane1.position.set(-9,4,4);
+plane1.rotation.x = -0.5*Math.PI;
+
+var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+plane.position.set(0,-6,4);
+plane.rotation.x = -0.5*Math.PI;
+plane.receiveShadow = true;
+
+var axes = new THREE.AxesHelper(20);
+axes.position.set(0,0,10);
+scene.add(axes);
+scene.add(plane,plane1,plane2,plane3,plane4);
+
+camera.position.set(30,75,-30);
+
+plane1.rotation.y = 0.1;
+plane2.rotation.y = -0.1;5
+
+var step = 0;
+var size = 10;
+
+document.body.appendChild(renderer.domElement)
+const controls = new OrbitControls(camera,renderer.domElement)
+const mouse = {
+    x: undefined,
+    y: undefined
+}
+
+
+window.addEventListener("resize", onWindowResize, false);
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+renderScene();
+
+function renderScene(){
+    step += 0.01
+    size -= 0.03
+    plane1.position.x = ( -8 * (Math.cos(step))-1)+1.2;
+    plane1.position.y = 1.5 + (4 * Math.abs(Math.sin(step)+0.2)+2.5);
+    plane1.rotation.y += 0.008;
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+        camera.position.x = 100 * Math.sin(default_value);
+        camera.position.z = 40 * Math.cos(default_value);
+        //camera.position.x = 40 * Math.sin(default_value)+1;
+        //camera.position.y = 60 * Math.abs(Math.cos(default_value))+1
+        // camera.position.z = -60 * Math.abs(Math.cos(default_value))+1;
+        default_value += add;
+
+    if(plane1.rotation.y > 2.85){
+        plane1.position.set(-9,4,4);
+        plane1.rotation.x = -0.5*Math.PI;
+        plane1.rotation.y= 0.1
+        step = 0;
+        size = 10;
+    }
+    requestID = requestAnimationFrame(renderScene)
+    renderer.render(scene,camera)
+};
+addEventListener("click",()=>{
+        plane1.position.set(-9,4,4);
+        plane1.rotation.x = -0.5*Math.PI;
+        plane1.rotation.y= 0.1
+        step = 0;
+        size = 10;
+        add = 0.01, default_value = 0;
+        requestAnimationFrame(cameramove)
+        setInterval(() => {
+            window.open("swiperexcu.html","_self")
+        }, 4000);
+
+        document.getElementById("head").innerHTML = "";
+    })
+    function cameramove(){
+        console.log(camera.position.z)
+        if(camera.position.z>15)
+        camera.position.set(0,
+        120 * Math.abs(Math.sin(default_value))+1,
+        80 * Math.abs(Math.cos(default_value))+1)
+        if(camera.position.z <15){
+            size += 0.5;
+            camera.position.set(0,120-(size*1.5),0)
+        } 
+
+        requestAnimationFrame(cameramove)
+        renderer.render(scene,camera)
+    }
+}
+
+// let a = false;
+/* if(a == false){
+    addEventListener('click',(e)=>{
+    cancelAnimationFrame(requestID)
+    a = true
+})
+} else if (a==true) {
+    addEventListener('click',(e)=>{
+    restartAnimationFrame(requestID)
+    a = false
+    })
+} */
+
+
+
+</script>
+</body>
+</html>
