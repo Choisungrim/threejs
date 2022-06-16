@@ -1,0 +1,28 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    *{
+    margin: 0;
+    overflow: hidden;
+    }
+    canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+    }
+    .text-box {
+    font-size: 60px;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 7px;
+    word-spacing: 12px;
+    text-transform: uppercase;
+    color:rgb(238, 238, 238);
+    }

@@ -1,12 +1,9 @@
 body {
   width: 100vw;
   height: 100vh;
-  margin: 0;
+  margin: 0 auto;
   background: black;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 canvas {
   position: absolute;

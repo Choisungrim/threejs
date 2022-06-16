@@ -1,0 +1,12 @@
+* {
+    outline: none;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+canvas {
+    _border: 1px dashed black;
+}

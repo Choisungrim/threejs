@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>#target {
+        width: 100px;
+        height: 100px;
+        background-color: #FF0000;
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    </style>
+
+    <script>
+        window.addEventListener("load", () => {
+	var elTarget = document.querySelector("#target");
+    var requestId;
+	let x = 0;
+    let y = 0;
+	let direction = "right";
+    let pause = false;
+    
+    elTarget.onclick = function() {
+        if (!pause) window.cancelAnimationFrame(requestId);
+        else requestId = window.requestAnimationFrame(move);
+        pause = !pause;
+    };
+    
+	function move(time) {
+    	if (x > innerWidth - 100) direction = "left";
+    	if (x < 0) direction = "right";
+
+    	if (y > innerHeight - 100) direction = "down";
+    	if (y < 0) direction = "up";
+
+        console.log(elTarget.style.width +=10);
+    
+ 		elTarget.style.transform = `
+         translateX(${direction == "right" ? x++ : x--}px)
+         translateY(${direction == "up" ? y-- : y++}px)
+        `;
+
+		requestId = window.requestAnimationFrame(move);
+	}
+
+	window.requestAnimationFrame(move);
+});
+
+    </script>
+</head>
+<body>
+    <div id="target">Click me</div>
+</body>
+</html>

@@ -98,16 +98,7 @@ textarea{
       <div class="swiper-button-prev" id = "prev"></div>
   </div> -->
   <div class="text-box" id="text-box1">
-    <div class="postbox" id ="postbox">
-      <div id="post"> Window Click there</div>
-    </div>
-    <div class="hidden" id = "text-box1">
-      <textarea id = "test" class = hidden style = "height: 733px; width: 682px; background:#fafad2; font-size:24pt" onkeyup="enterkey()"></textarea>
-      <div class = "btnbox">
-        <button type = submit class = btn onclick="click1()">저장</button>
-        <button type = reset class = btn onclick="clear()">취소</button>
-      </div>
-    </div>
+    
 </div>
 
 <canvas id = "c">
@@ -149,7 +140,7 @@ textarea{
           side:THREE.DoubleSide,
       })
       plane1 = new THREE.Mesh(planeGeometry1,planeMaterial1)
-      plane1.position.set(-85,95,43.5);
+      plane1.position.set(0,10,1);
       plane1.rotation.x = -0.5*Math.PI;
       scene.add(plane1)
       
@@ -163,80 +154,28 @@ textarea{
       }
       renderer.render(scene, camera);
     }
-
-    setTimeout(() => {
-      animate();
-    }, 1000);
+    animate();
     function animate() {
-      
-      $('.hidden').removeClass("hidden");
-      $('.postbox').addClass("hidden")
-      $('#text-box1').addClass("hidden")
-
-      if(flag == false){
-        if(plane1.position.y>10){
-          plane1.position.x +=1
-          plane1.position.y -=1
-          plane1.position.z -=0.5
-        } else {
-          console.log(plane1.position.y)
-          plane1.position.set(0,10,1);
-        }
-        setInterval(() => {
-          cancelAnimationFrame(requestID)
-          document.getElementById("text-box1").classList.remove('hidden')
-        }, 1500);
-      }
-      else if(flag == true){
-        if(plane1.position.y >=10){
+        if(plane1.position.y >= 10){
             plane1.position.x -=1
             plane1.position.y +=1
             plane1.position.z +=0.5
             console.log(plane1.position.y)
         } 
-        else if(plane1.position.y > 94){
+        if (plane1.position.y >95){
           plane1.position.set(-85,95,43.5);
         }
-      }
       
       requestID = requestAnimationFrame(animate);
       renderer.render(scene, camera);
     }
 
     
-  function enterkey(e) {
-    if (window.event.keyCode == 13) {
-    	// 엔터키가 눌렸을 때
-      console.log($('#test').val())
-      let content =  $('#test').val();
-    }
-    event.stopPropagation();
-}
 
-function click1() {
-  console.log($('#test').val())
-  document.getElementById('test').value = `당신의 코드는 00#001 입니다.`;
-  document.getElementById("test").classList.add('hidden')
-  setTimeout(() => {
-    window.open("./index2.html","_self")
-  }, 1500);
-  requestID = requestAnimationFrame(animate);
-}
+    
 
-function clear(){
-  document.getElementById('test').value = ``
-}
-/* function saved() {
-      if(plane1.position.y<10){
-        plane1.position.x -=1
-        plane1.position.y +=1
-        plane1.position.z +=0.5
-      } else {
-        plane1.position.set(-85,95,43.5);
-      }
-      renderer.render(scene, camera);
-      requestAnimationFrame(saved);
-  } */
+
+
     </script>
   </body>
 </html>
