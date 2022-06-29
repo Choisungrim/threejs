@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>3dblock</title>
+    <style>
+      body{
+        overflow: hidden;
+        margin: 0;
+      }
+      div{
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id = webgl2></div>
+    <script src = "../jquery-3.2.1.min.js"></script>
+    <script src="three.min.js"></script>
+    <script type="module">
+      import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+var container;
+var camera, scene, raycaster, renderer, step;
+var mouse = new THREE.Vector2(), SELECTED;
+var radius = 100, theta = 0;
+var controls;
+init();
+animate();
+function init() {
+  container = document.getElementById( 'webgl2' );
+  camera = new THREE.PerspectiveCamera( 
+    70, window.innerWidth / window.innerHeight, 1, 1000 );
+  scene = new THREE.Scene();
+  var light = new THREE.DirectionalLight( 0xffffff, 1 );
+  light.position.set( 1, 1, 1 ).normalize();
+  scene.add( light );
+  var geometry = new THREE.BoxBufferGeometry( 20, 20, 20 );
+
+  for ( var i = 0; i < 1000; i ++ ) {
+    var grey=Math.random();
+    var object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( 
+      { color: new THREE.Color( grey, grey , grey )  } ) );
+
+    object.position.x = Math.random() * 800 - 400;
+    object.position.y = Math.random() * 800 - 400;
+    object.position.z = Math.random() * 800 - 400;
+    object.rotation.x = Math.random() * 2 * Math.PI;
+    object.rotation.y = Math.random() * 2 * Math.PI;
+    object.rotation.z = Math.random() * 2 * Math.PI;
+
+    object.scale.x = Math.random() + 0.5;
+    object.scale.y = Math.random() + 0.5;
+    object.scale.z = Math.random() + 0.5;
+    scene.add( object );
+  }
+renderer = new THREE.WebGLRenderer();
+renderer.setClearColor( 0xf0f0f0 );
+
+renderer.setSize( window.innerWidth, window.innerHeight);
+container.appendChild(renderer.domElement);
+
+raycaster = new THREE.Raycaster();
+
+}
+
+container.addEventListener( 'mousemove', onDocumentMouseMove, false );
+container.addEventListener( 'mousedown', onDocumentMouseDown, false );
+window.addEventListener( 'resize', onWindowResize, true );
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight);
+}
+
+function onDocumentMouseMove( event ) {
+  event.preventDefault();
+  var gap1 = event.clientY - event.offsetY;
+  var gap2 = event.clientX - event.offsetX; 
+  mouse.x = ( (event.clientX-gap2) / (window.innerWidth) ) * 2 - 1;
+  mouse.y = - ( (event.clientY-gap1) / (window.innerHeight) ) * 2 + 1;
+}
+
+function onDocumentMouseDown( event ) {
+  event.preventDefault();
+  if ( SELECTED ){
+      SELECTED.currentHex = 0x00ff00*Math.random();
+      SELECTED.material.emissive.setHex( SELECTED.currentHex );
+  }
+}
+
+function animate() {
+requestAnimationFrame( animate );
+    camera.rotation.x -= 0.005    
+    camera.rotation.y += 0.005    
+    camera.rotation.z += 0.005    
+render();
+}
+
+function render() {
+raycaster.setFromCamera( mouse, camera );
+var intersects = raycaster.intersectObjects( scene.children );
+if ( intersects.length > 0 ) {
+    if ( SELECTED != intersects[ 0 ].object ) {
+        if ( SELECTED ) SELECTED.material.emissive.setHex( SELECTED.currentHex );
+        SELECTED = intersects[ 0 ].object;
+        SELECTED.currentHex = SELECTED.material.emissive.getHex();
+        SELECTED.material.emissive.setHex( 0xff0000 );
+        container.style.cursor = 'pointer';
+
+    }
+} else {
+    if ( SELECTED ) {
+        SELECTED.material.emissive.setHex( SELECTED.currentHex );
+        SELECTED = null;
+        container.style.cursor = 'auto';
+    }
+}
+renderer.render( scene, camera );
+} 
+  </script>
+  </body>
+</html>

@@ -1,133 +1,128 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset=UTF-8 />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet"> 
-    <style>
-/*swiper*/
-.swiper-container {
-  padding-top: 100px;
-  top:150px;
-  width: 1920px;
-  height: 120px;
-}
-.swiper-slide {
-  position: absolute;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-grow: 0;
-  background-color: #fafad2;
-  width: 150px;
-}
-#next, #prev{
-  color: #fafad2;
-  top:55px;
+<head>
+<meta charset=UTF-8 />
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Raleway&display=swap"
+	rel="stylesheet">
+<style>
+#text-box1 {
+	height: 100%;
+	margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
-#text-box1{
-  height: 100%;
-  margin-left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+#post {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-size: 18pt;
+	color: red;
 }
-#post{
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-size: 18pt;
-  color:red;
+
+.heading {
+	color: red;
 }
-.heading{
-  color: red;
+
+canvas {
+	background: url("laptop-g9822c0f6b_1920.jpg") no-repeat center
+		center;
+	background-size: cover;
+	object-fit: cover
 }
-canvas{
-  background: url("laptop-g9822c0f6b_1920.jpg") no-repeat center center;
-  background-size: cover;
-  object-fit:cover
+
+img {
+	position: relative;
+	z-index: -9999;
 }
-img{
-  position: relative;
-  z-index: -9999;
-}
+
 div#text-box1.hidden {
-  display: none;
+	display: none;
 }
-.hidden{
-  display: none;
-}
-textarea{
-  text-align: center;
-}
-.btnbox{
-  display: flex;
-}
-.btn{
-    width: 200px;
-    background-color: #fafad2;
-    border: 1px solid white;
-    margin-top:-80px;
-    font-size : 18pt
-}
-    </style>
-  </head>
-  <body>
-  <!-- <div class="swiper-container">
-      <div class="swiper-wrapper">
-          <input type = text class="swiper-slide" id = "slide0">1
-          <div class="swiper-slide" id = "slide1">2</div>
-          <div class="swiper-slide" id = "slide2"></div>
-          <div class="swiper-slide" id = "slide3"></div>
-          <div class="swiper-slide" id = "slide4"></div>
-          <div class="swiper-slide" id = "slide5"></div>
-          <div class="swiper-slide" id = "slide6"></div>
-          <div class="swiper-slide" id = "slide7"></div>
-          <div class="swiper-slide" id = "slide8"></div>
-          <div class="swiper-slide" id = "slide9"></div>
-          <div class="swiper-slide" id = "slide10"></div>
-          <div class="swiper-slide" id = "slide11"></div>
-          <div class="swiper-slide" id = "slide12"></div>
-      </div>
-      <div class="swiper-button-next" id = "next"></div>
-      <div class="swiper-button-prev" id = "prev"></div>
-  </div> -->
-  <div class="text-box" id="text-box1">
-    <div class="postbox" id ="postbox">
-      <div id="post"> Window Click there</div>
-    </div>
-    <div class="hidden" id = "text-box1">
-      <textarea id = "test" class = hidden style = "height: 733px; width: 682px; background:#fafad2; font-size:24pt" onkeyup="enterkey()"></textarea>
-      <div class = "btnbox">
-        <button type = submit class = btn onclick="click1()">저장</button>
-        <button type = reset class = btn onclick="clear()">취소</button>
-      </div>
-    </div>
-</div>
 
-<canvas id = "c">
-  <img crossorigin=anonymous src=./laptop-g9822c0f6b_1920.jpg>
+.hidden {
+	display: none;
+}
+
+textarea {
+	text-align: center;
+}
+
+.btnbox {
+	display: flex;
+	justify-content: center;
+}
+
+.btn {
+	width: 200px;
+	background-color: #fafad2;
+	border: 1px solid white;
+	margin-top: -80px;
+	font-size: 18pt
+}
+</style>
+</head>
+<body>
+	<div class="text-box" id="text-box1">
+		<div class="postbox" id="postbox">
+			<div id="post">Window Click there</div>
+		</div>
+		<div class="hidden" id="text-box1">
+			<form method=get action=s type=submit>
+				<textarea id="test" class=hidden
+					style="height: 733px; width: 750px; background: #fafad2; font-size: 24pt" 
+					onkeyup="enterkey()"></textarea>
+				<div class="btnbox">
+					<button type=submit class=btn>저장</button>
+					<button type=reset class=btn>취소</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<canvas id="c">
+  <img crossorigin=anonymous src=laptop-g9822c0f6b_1920.jpg>
 </canvas>
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src = "../jquery-3.2.1.min.js"></script>
-
-<script src="three.min.js"></script>
-<script type>    
-    let scene, camera, renderer, stars, starGeo ,plane1, controls;
-    let flag = false
+	<script src="../jquery-3.2.1.min.js"></script>
+	<script src="three.min.js"></script>
+	<script>    
+    var scene, camera, renderer, stars, starGeo ,plane1, controls,a=1;
+    var flag = false
+    let array = [];
+    let code1 = {
+			codename : '001',
+			postitcode : '001',
+			content : $('#test').val()
+		}
+    $.ajax({
+    	type : 'get',
+    	url : 'list',
+    	success : (content1) =>{
+    		let length = content1.content1.length;
+    		console.log(length)
+    		for(let i = 0; i < length; i++){
+    			array = content1.content1[i].codename.split('#')
+    			if(array[i] == code1.codename && code1.codename != '000'){
+    				code1.codename = "00"+(i+1)
+					console.log("arr"+array[i])
+    			}
+    		}
+    		document.getElementById("test").classList.add('hidden')
+    	}
+    })
     init();
     function init() {
       const canvas = document.querySelector('#c');
 
       scene = new THREE.Scene();
       const loader = new THREE.TextureLoader();
-      const bgTexture = loader.load('./laptop-g9822c0f6b_1920.jpg');
+      const bgTexture = loader.load('laptop-g9822c0f6b_1920.jpg');
       scene.background = bgTexture;
       scene.autoUpdate = true;
 
@@ -166,6 +161,7 @@ textarea{
 
     setTimeout(() => {
       animate();
+
     }, 1000);
     function animate() {
       
@@ -173,70 +169,51 @@ textarea{
       $('.postbox').addClass("hidden")
       $('#text-box1').addClass("hidden")
 
-      if(flag == false){
         if(plane1.position.y>10){
           plane1.position.x +=1
           plane1.position.y -=1
           plane1.position.z -=0.5
         } else {
-          console.log(plane1.position.y)
           plane1.position.set(0,10,1);
         }
+        requestID = requestAnimationFrame(animate)
+		renderer.render(scene,camera)
+        
         setInterval(() => {
-          cancelAnimationFrame(requestID)
-          document.getElementById("text-box1").classList.remove('hidden')
-        }, 1500);
-      }
-      else if(flag == true){
-        if(plane1.position.y >=10){
-            plane1.position.x -=1
-            plane1.position.y +=1
-            plane1.position.z +=0.5
-            console.log(plane1.position.y)
-        } 
-        else if(plane1.position.y > 94){
-          plane1.position.set(-85,95,43.5);
-        }
-      }
-      
-      requestID = requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    }
+            cancelAnimationFrame(requestID)
+            $("#text-box1").removeClass('hidden')
+           		    
+          }, 1800);
+		}
 
-    
   function enterkey(e) {
     if (window.event.keyCode == 13) {
-    	// 엔터키가 눌렸을 때
       console.log($('#test').val())
-      let content =  $('#test').val();
-    }
-    event.stopPropagation();
+	}
 }
+	
 
-function click1() {
-  console.log($('#test').val())
-  document.getElementById('test').value = `당신의 코드는 00#001 입니다.`;
-  document.getElementById("test").classList.add('hidden')
-  setTimeout(() => {
-    window.open("./index2.html","_self")
-  }, 1500);
-  requestID = requestAnimationFrame(animate);
+  function click1() {
+   document.getElementById('test').value = `당신의 코드는 ${'code1.codename'}#${'code1.postitcode'} 입니다.`;
+   console.log(replace(document.getElementById('test').value),8,15);
+   document.getElementById("test").classList.add('hidden')
+   
+    $.ajax({
+        url : 'save',
+        type : 'get',
+        data : {code : code1.codename,
+                postit : code1.postitname,
+                content : code1.content},
+        success : ()=>{
+          alert('success');
+		    code1.postitname = "00"+(a)
+		    a++;
+        },
+        error : ()=>{
+          alert("fail");
+        }
+      })
 }
-
-function clear(){
-  document.getElementById('test').value = ``
-}
-/* function saved() {
-      if(plane1.position.y<10){
-        plane1.position.x -=1
-        plane1.position.y +=1
-        plane1.position.z +=0.5
-      } else {
-        plane1.position.set(-85,95,43.5);
-      }
-      renderer.render(scene, camera);
-      requestAnimationFrame(saved);
-  } */
     </script>
-  </body>
+</body>
 </html>
